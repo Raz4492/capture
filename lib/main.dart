@@ -48,17 +48,6 @@ void main(List<String> args) async {
 }
 
 Future<void> _requestPermissions() async {
-  // Request Bluetooth permissions
-  PermissionStatus bluetoothStatus = await Permission.bluetooth.request();
-  if (bluetoothStatus.isDenied) {
-    print(
-        "Bluetooth permission denied. The app requires Bluetooth access to function properly. Please enable it in settings.");
-  } else if (bluetoothStatus.isPermanentlyDenied) {
-    print(
-        "Bluetooth permission is permanently denied. Please enable it manually in the settings.");
-    openAppSettings();
-  }
-
   // Request location permissions
   PermissionStatus locationStatus = await Permission.location.request();
   if (locationStatus.isDenied) {
