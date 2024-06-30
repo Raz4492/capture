@@ -16,6 +16,10 @@ AppInfo appInfo = AppInfo(
 );
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize the required variables
+  Locale _deviceLocale = Locale('en', 'US');
   runApp(
     EasyLocalization(
       path: 'assets/translations',
