@@ -507,62 +507,65 @@ class CapturedSdkWidgetState extends State<CapturedSdkWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Row(children: <Widget>[
-              const Text('Status: '),
-              Text(_status, style: Theme.of(context).textTheme.bodyLarge),
-            ]),
-            // Text(_currentscan != null
-            //     ? 'Scan from ${_currentscan!.value.name}: ' +
-            //         _currentscan!.value.data.toString()
-            //     : 'No Data'),
-            Row(children: <Widget>[
-              const Text('Message: '),
-              Flexible(
-                child: Text(_message,
-                    style: Theme.of(context).textTheme.bodyLarge),
-              ),
-            ]),
-
-            StreamBuilder<List<DecodedData>>(
-              stream: context.read<ScannedDataCubit>().decodedDataStream,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting ||
-                    _isLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('No scans yet.'));
-                } else {
-                  final decodedDataList = snapshot.data!;
-                  return Container(
-                    constraints: const BoxConstraints(maxHeight: 100),
-                    child: ListView.builder(
-                      itemCount: decodedDataList.length,
-                      itemBuilder: (context, index) {
-                        final items = decodedDataList[index];
-                        final item = utf8.decode(items.data);
-                        return ListTile(
-                          title: Text(items.name),
-                          subtitle: Text(item),
-                        );
-                        // return Text(
-                        //     "- ${item.name.toUpperCase()} (${item.data.length}) ${item.data}");
-                      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("title"),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    const Text('Status: '),
+                    Text(_status, style: Theme.of(context).textTheme.bodyLarge),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    const Text('Message: '),
+                    Flexible(
+                      child: Text(_message,
+                          style: Theme.of(context).textTheme.bodyLarge),
                     ),
-                  );
-                }
-              },
+                  ],
+                ),
+                StreamBuilder<List<DecodedData>>(
+                  stream: context.read<ScannedDataCubit>().decodedDataStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting ||
+                        _isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(child: Text('No scans yet.'));
+                    } else {
+                      final decodedDataList = snapshot.data!;
+                      return Container(
+                        constraints: const BoxConstraints(maxHeight: 400),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: decodedDataList.length,
+                          itemBuilder: (context, index) {
+                            final item = decodedDataList[index];
+                            final decodedItem = utf8.decode(item.data);
+                            return ListTile(
+                              title: Text(item.name),
+                              subtitle: Text(decodedItem),
+                            );
+                          },
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
