@@ -18,9 +18,8 @@ AppInfo appInfo = AppInfo(
 void main() {
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en', 'US'), Locale('ar', 'EG')],
-      path: 'assets/translations',
-      fallbackLocale: const Locale('en', 'US'),
+      path: '',
+        supportedLocales: const [Locale('en', 'US'),],
       child: MultiProvider(
         providers: [
           Provider<AppInfo>.value(value: appInfo),

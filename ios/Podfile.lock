@@ -1,0 +1,46 @@
+PODS:
+  - CaptureSDK (1.9.30):
+    - SwiftDecoder (~> 5.8.14)
+  - capturesdk_flutter (1.5.12):
+    - CaptureSDK (~> 1.9.21)
+    - Flutter
+  - Flutter (1.0.0)
+  - permission_handler_apple (9.3.0):
+    - Flutter
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - SwiftDecoder (5.8.15)
+
+DEPENDENCIES:
+  - capturesdk_flutter (from `.symlinks/plugins/capturesdk_flutter/ios`)
+  - Flutter (from `Flutter`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+
+SPEC REPOS:
+  "https://oauth2:glpat-3NR_PuswgTcZxsTvT9b3@sdk.socketmobile.com/capture/cocoapods-repo.git":
+    - CaptureSDK
+    - SwiftDecoder
+
+EXTERNAL SOURCES:
+  capturesdk_flutter:
+    :path: ".symlinks/plugins/capturesdk_flutter/ios"
+  Flutter:
+    :path: Flutter
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+
+SPEC CHECKSUMS:
+  CaptureSDK: 12f357a4007e09a63704dd2f1fd8f152f9154eea
+  capturesdk_flutter: 663afd1036c5d3c37593148b1bb283a07149f9a2
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
+  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
+  SwiftDecoder: 1f1922020ef20c2154c752497614a918e68a35d5
+
+PODFILE CHECKSUM: 1f2aa70800163f9db5ad9ded2e3386c0d58b19b3
+
+COCOAPODS: 1.15.2
