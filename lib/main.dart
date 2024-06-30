@@ -5,6 +5,7 @@ import 'package:captur/ScannedDataCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:capturesdk_flutter/capturesdk.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 AppInfo appInfo = AppInfo(
@@ -23,18 +24,18 @@ class AppInitializer {
   }
 }
 
-Future<void> main() async {
+void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AppInitializer.init();
 
-  // Initialize the required variables
-  Locale _deviceLocale = Locale('en', 'US');
+  await AppInitializer.init();
+  if (Platform.isIOS) {
+    await _requestPermissions();
+  }
   runApp(
     EasyLocalization(
+      supportedLocales: const [Locale('en', 'US'), Locale('ar', 'EG')],
       path: 'assets/translations',
-      supportedLocales: const [
-        Locale('en', 'US'),
-      ],
+      fallbackLocale: const Locale('en', 'US'),
       child: MultiProvider(
         providers: [
           Provider<AppInfo>.value(value: appInfo),
@@ -44,6 +45,41 @@ Future<void> main() async {
       ),
     ),
   );
+}
+
+Future<void> _requestPermissions() async {
+  // Request Bluetooth permissions
+  PermissionStatus bluetoothStatus = await Permission.bluetooth.request();
+  if (bluetoothStatus.isDenied) {
+    print(
+        "Bluetooth permission denied. The app requires Bluetooth access to function properly. Please enable it in settings.");
+  } else if (bluetoothStatus.isPermanentlyDenied) {
+    print(
+        "Bluetooth permission is permanently denied. Please enable it manually in the settings.");
+    openAppSettings();
+  }
+
+  // Request location permissions
+  PermissionStatus locationStatus = await Permission.location.request();
+  if (locationStatus.isDenied) {
+    print(
+        "Location permission denied. The app requires location access to function properly. Please enable it in settings.");
+  } else if (locationStatus.isPermanentlyDenied) {
+    print(
+        "Location permission is permanently denied. Please enable it manually in the settings.");
+    openAppSettings();
+  }
+
+  // Request camera permissions
+  PermissionStatus cameraStatus = await Permission.camera.request();
+  if (cameraStatus.isDenied) {
+    print(
+        "Camera permission denied. The app requires camera access to function properly. Please enable it in settings.");
+  } else if (cameraStatus.isPermanentlyDenied) {
+    print(
+        "Camera permission is permanently denied. Please enable it manually in the settings.");
+    openAppSettings();
+  }
 }
 
 class MyApp extends StatelessWidget {
