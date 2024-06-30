@@ -8,13 +8,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
-AppInfo appInfo = AppInfo(
-  appIdAndroid: '',
-  appKeyAndroid: '',
-  appIdIos: 'ios:net.captainchef.pos',
-  appKeyIos: 'MCwCFCCrwQgbDjJX65wuat7YB6JdB5lSAhQYnEpoP4H+ntutV9oJkwmLe5spdQ==',
-  developerId: '6f9387c0-440d-ef11-9f89-0022480bffec',
-);
+const AppInfo appInfo = AppInfo(
+    appIdAndroid: '',
+    appKeyAndroid: '',
+    appIdIos: 'ios:com.example.example',
+    appKeyIos:
+        'MC0CFA1nzK67TLNmSw/QKFUIiedulUUcAhUAzT6EOvRwiZT+h4qyjEZo9oc0ONM=',
+    developerId: 'bb57d8e1-f911-47ba-b510-693be162686a');
 
 class AppInitializer {
   static Future init() async {
