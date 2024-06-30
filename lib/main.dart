@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:captur/CapturedSdkWidget.dart';
+import 'package:captur/ScannedDataCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:capturesdk_flutter/capturesdk.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:provider/provider.dart';
 
-const appInfo = AppInfo(
+AppInfo appInfo = AppInfo(
   appIdAndroid: '',
   appKeyAndroid: '',
   appIdIos: 'ios:net.captainchef.pos',
@@ -13,7 +16,20 @@ const appInfo = AppInfo(
 );
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en', 'US'), Locale('ar', 'EG')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', 'US'),
+      child: MultiProvider(
+        providers: [
+          Provider<AppInfo>.value(value: appInfo),
+          Provider(create: (_) => ScannedDataCubit()),
+        ],
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
