@@ -15,8 +15,17 @@ AppInfo appInfo = AppInfo(
   developerId: '6f9387c0-440d-ef11-9f89-0022480bffec',
 );
 
-void main() {
+class AppInitializer {
+  static Future init() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    await EasyLocalization.ensureInitialized();
+  }
+}
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AppInitializer.init();
 
   // Initialize the required variables
   Locale _deviceLocale = Locale('en', 'US');
